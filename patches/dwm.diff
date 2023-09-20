@@ -22,10 +22,10 @@ index 9efa774..a1ef4f7 100644
  	TAGKEYS(                        XK_3,                      2)
 diff --git a/config.h b/config.h
 new file mode 100644
-index 0000000..1af5c57
+index 0000000..2a4f32f
 --- /dev/null
 +++ b/config.h
-@@ -0,0 +1,146 @@
+@@ -0,0 +1,148 @@
 +/* See LICENSE file for copyright and license details. */
 +
 +/* appearance */
@@ -103,10 +103,11 @@ index 0000000..1af5c57
 +/* commands */
 +static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 +/*static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };*/
-+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray5, "-nf", col_white, "-sb", col_gray6, "-sf", col_white, NULL };
-+static const char *cmdprtscr_w[]  = { "sh", "/etc/nixos/scripts/prtscr_w.sh", "NULL", };
-+static const char *cmdprtscr_s[]  = { "sh", "/etc/nixos/scripts/prtscr_s.sh", "NULL", };
-+static const char *cmdtrans_s[]   = { "sh", "/etc/nixos/scripts/trans.sh", "NULL", };
++static const char *dmenucmd[]		= { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray5, "-nf", col_white, "-sb", col_gray6, "-sf", col_white, NULL };
++static const char *cmdprtscr_w[]	= { "sh", "/etc/nixos/scripts/prtscr_w.sh",		NULL, };
++static const char *cmdprtscr_s[]	= { "sh", "/etc/nixos/scripts/prtscr_s.sh",		NULL, };
++static const char *cmdtrans_s[]		= { "sh", "/etc/nixos/scripts/trans.sh",		NULL, };
++static const char *cmdsurf[]		= { "sh", "/etc/nixos/scripts/surf_search.sh",		NULL, };
 +
 +static const char *termcmd[]  = { "st", NULL };
 +
@@ -142,6 +143,7 @@ index 0000000..1af5c57
 +	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = cmdprtscr_s } },
 +	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = cmdprtscr_w } },
 +	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = cmdtrans_s } },
++	{ MODKEY|ShiftMask,		XK_e,      spawn,          {.v = cmdsurf } },
 +
 +	TAGKEYS(                        XK_1,                      0)
 +	TAGKEYS(                        XK_2,                      1)

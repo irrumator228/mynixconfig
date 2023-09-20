@@ -1,5 +1,5 @@
 #!/bin/sh
-for PKG_NAME in slstatus st dwm dmenu
+for PKG_NAME in slstatus st dwm dmenu sfm slock
 do
 	cd /home/talp/$PKG_NAME/
 	git diff HEAD > /home/talp/$PKG_NAME.diff

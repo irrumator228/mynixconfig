@@ -42,23 +42,10 @@ nixpkgs.overlays = [
 			patches = [
 				/etc/nixos/patches/dwm.diff
 
-				# ffcast -w png ~/ss_"$(date +%F-%T)".png
-				# ffcast -s png ~/ss_"$(date +%F-%T)".png
-
-
-
 				(prev.fetchpatch {
 					url = "https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff";
 					hash = "sha256-8z41ld47/2WHNJi8JKQNw76umCtD01OUQKSr/fehfLw=";
 				})
-				
-				/*
-				(prev.fetchpatch {
-					url = "	https://dwm.suckless.org/patches/fullgaps/dwm-fullgaps-6.4.diff";
-					hash = "sha256-+OXRqnlVeCP2Ihco+J7s5BQPpwFyRRf8lnVsN7rm+Cc=";
-				})
-				*/
-
 			];
 			
 		});
@@ -114,6 +101,12 @@ nixpkgs.overlays = [
       				/etc/nixos/patches/slstatus.diff
 			];
 		});
+
+		sfm = prev.sfm.overrideAttrs (oldAttrs: rec {
+    			patches = [
+      				/etc/nixos/patches/sfm.diff
+			];
+		});
 	})
 
 ];
@@ -131,11 +124,11 @@ users.users.talp = {
 
 environment.systemPackages = with pkgs; [
 	neovim			# text editor
+
 	dwm			# window manager 
 	st			# term 			# kitty
 	
 	dmenu			# program menu
-	rofi			#
 
 	slstatus		# status screen
 	taskwarrior		# tasks 
@@ -153,12 +146,19 @@ environment.systemPackages = with pkgs; [
 	oksh
 	
 	vieb			# browser		
-	surf			# vimb	# nyxt # 
+	surf			
+	vimb
+	nyxt 
 	google-chrome 
 	
 	ffcast	 		# screenshot		# scrot
 	unzip			# 
-	ranger			# file manager		# nnn	# sfm
+				# file manager		# nnn
+	sfm
+
+	dvtm
+	abduco
+
 	zathura			# document viewer
 	htop			# resourse screen
 	fira-code		# font with ligatures
@@ -169,13 +169,15 @@ environment.systemPackages = with pkgs; [
 	translate-shell		# translator
 	keynav    		# mouse killer
 	nitch			# fetch
-	
+	neofetch
+
 	discord
 
 	slock			# screen lock
 	sselp
 
 	picom
+	pmbootstrap
 
 	screenkey
 
@@ -190,6 +192,10 @@ environment.systemPackages = with pkgs; [
 #	scroll
 #	quark
 	
+	tiramisu
+
+	qjackctl
+
 	phoronix-test-suite
 
 	# gomuks		#
@@ -198,7 +204,8 @@ environment.systemPackages = with pkgs; [
 	# btpd			# torrent client
 	# transmission		#
 	# libz			# archive manager
-	# qemu			# virtual
+	qemu			# virtual
+	virt-manager
 	# browsh		# lagrange	# offpunk	
 	# librewolf		#
 	# lynx			# w3m		
@@ -321,6 +328,19 @@ services.blueman.enable = true;
 # networking.firewall.allowedTCPPorts = [ ... ];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # networking.firewall.enable = false;
+
+virtualisation.libvirtd.enable = true;
+programs.dconf.enable = true;
+
+/*
+dconf.settings = {
+  "org/virt-manager/virt-manager/connections" = {
+    autoconnect = ["qemu:///system"];
+    uris = ["qemu:///system"];
+  };
+};
+*/
+# users.users.talp.extraGroups = [ "libvirtd" ];
 
 system.stateVersion = "23.05";
 }
